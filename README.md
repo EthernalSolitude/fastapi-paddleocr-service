@@ -72,7 +72,9 @@ docker stop my-ocr
 ```bash
 # Клонируйте репозиторий
 git clone https://github.com/EthernalSolitude/fastapi-paddleocr-service.git
-cd ocr_service
+
+# Перейдите в папку проекта
+cd fastapi-paddleocr-service
 
 # Соберите образ
 docker build -t ocr-service:latest .
