@@ -71,14 +71,14 @@ docker stop my-ocr
 
 ```bash
 # Клонируйте репозиторий
-git clone <your-repo-url>
+git clone https://github.com/EthernalSolitude/fastapi-paddleocr-service.git
 cd ocr_service
 
 # Соберите образ
-docker build -t ocr-service:custom .
+docker build -t ocr-service:latest .
 
 # Запустите контейнер
-docker run -d -p 8000:8000 --name my-ocr ocr-service:custom
+docker run -d -p 8000:8000 --name my-ocr ocr-service:latest
 ```
 
 Первая сборка может занять 3-5 минут.
@@ -101,7 +101,7 @@ http://localhost:8000/docs
 
 **Шаг 1:** Откройте http://localhost:8000/docs
 
-**Шаг 2:** Найдите эндпоинт `POST /ocr/predict` (зеленая кнопка)
+**Шаг 2:** Найдите эндпоинт `POST /api/process` (зеленая кнопка)
 
 **Шаг 3:** Нажмите на эндпоинт, чтобы развернуть его
 
@@ -113,20 +113,6 @@ http://localhost:8000/docs
 
 **Шаг 7:** Получите результат:
 
-```json
-{
-  "success": true,
-  "text": "Весь распознанный текст из изображения",
-  "confidence": 0.95,
-  "details": [
-    {
-      "text": "Слово",
-      "confidence": 0.98,
-      "bbox": [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
-    }
-  ]
-}
-```
 
 ---
 
