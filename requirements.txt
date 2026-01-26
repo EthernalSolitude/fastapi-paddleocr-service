@@ -1,8 +1,8 @@
 fastapi
 uvicorn[standard]
 python-multipart
-paddlepaddle
-paddleocr
-pymupdf
+paddlepaddle==2.6.1
+paddleocr>=2.7.0.3
 Pillow
-numpy
+numpy<2.0.0
+PyMuPDF 
