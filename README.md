@@ -124,7 +124,7 @@ fastapi-paddleocr-service/
 │   ├── main.py                # Точка входа FastAPI (создание app)
 │   ├── api/                   # API роуты (эндпоинты)
 │   │   ├── __init__.py
-│   │   └── routes.py          # /ocr/predict и другие
+│   │   └── routes.py          
 │   ├── core/                  # Настройки и конфиги
 │   │   ├── __init__.py
 │   │   └── config.py          # Переменные окружения, пути к моделям
@@ -137,14 +137,11 @@ fastapi-paddleocr-service/
 │       └── file_utils.py      # Работа с файлами, конвертация PDF
 ├── assets/                    
 │   └── Arial.ttf       
-├── tests/                     # Тесты
-│   ├── __init__.py
-│   └── test_api.py            # Тест эндпоинтов
 ├── Dockerfile                 # Инструкция сборки
 ├── download_model.py          # Скрипт для предзагрузки моделей (для Docker)
 ├── requirements.txt           # Список зависимостей
-└── run.py                     # Скрипт запуска (entry point)
-
+├── run.py                     # Скрипт запуска (entry point)
+├──test_api.py                 # тест эндпоинтов
 ```
 
 ## Docker Hub
