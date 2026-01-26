@@ -111,125 +111,57 @@ http://localhost:8000/docs
 
 **Шаг 6:** Нажмите "Execute"
 
-**Шаг 7:** Получите результат:
+**Шаг 7:** После обработки перейдите чуть ниже в раздел server response.
 
-
----
-
-## Использование через код
-
-### Python
-
-```python
-import requests
-
-with open("image.jpg", "rb") as f:
-    files = {"file": f}
-    response = requests.post("http://localhost:8000/ocr/predict", files=files)
-    result = response.json()
-    print(result["text"])
-```
-
-### cURL
-
-```bash
-curl -X POST "http://localhost:8000/ocr/predict" \
-  -F "file=@image.jpg"
-```
-
----
+**Шаг 8:** В поле Response body появится ссылка на скачивание файла с результатом (Download file) и текстовый json.
 
 ## Технические детали
 
 ### Модели
 
 Используется **PaddleOCR mobile версия**:
-- **Детекция текста**: PP-OCRv5_mobile_det (~8 МБ)
-- **Распознавание текста**: PP-OCRv5_mobile_rec (~9 МБ)
-
-**Почему mobile версия?**
-- Легкая и быстрая (идеально для CPU)
-- Точность 90-95% для стандартных текстов
-- Общий размер моделей: ~17 МБ
-- Время обработки: 0.5-1.5 секунды
-
-Если нужна более высокая точность, модель можно заменить на **server версию** в коде `ocr_model.py`.
-
-### Производительность
-
-| Метрика | Значение |
-|---------|----------|
-| Память при запуске | ~600 МБ |
-| Время первого запроса | 2-3 сек (инициализация) |
-| Время последующих | 0.5-1.5 сек |
-| Поддерживаемые форматы | JPG, PNG, BMP, TIFF |
-| Языки | Русский, Английский |
-
----
+- **Детекция текста**: PP-OCRv5_mobile_det 
+- **Распознавание текста**: PP-OCRv5_mobile_rec 
 
 ## Структура файлов
 
 ```
-ocr_service/
-├── run.py              # Главное приложение FastAPI
-├── ocr_model.py        # Обертка над PaddleOCR
-├── requirements.txt    # Зависимости
-├── Dockerfile          # Конфигурация Docker
-├── download_model.py   # Предзагрузка моделей
-└── README.md
+fastapi-paddleocr-service/
+├── app/                       # Весь исходный код приложения
+│   ├── __init__.py
+│   ├── main.py                # Точка входа FastAPI (создание app)
+│   ├── api/                   # API роуты (эндпоинты)
+│   │   ├── __init__.py
+│   │   └── routes.py          # /ocr/predict и другие
+│   ├── core/                  # Настройки и конфиги
+│   │   ├── __init__.py
+│   │   └── config.py          # Переменные окружения, пути к моделям
+│   ├── services/              # Сервисная логика приложения
+│   │   ├── __init__.py
+│   │   ├── ocr.py             # Класс PaddleOCRModel (логика распознавания)
+│   │   └── visualizer.py      # Рисование bounding boxes на фото
+│   └── utils/                 # Вспомогательные функции
+│       ├── __init__.py
+│       └── file_utils.py      # Работа с файлами, конвертация PDF
+├── assets/                    
+│   └── Arial.ttf       
+├── tests/                     # Тесты
+│   ├── __init__.py
+│   └── test_api.py            # Тест эндпоинтов
+├── Dockerfile                 # Инструкция сборки
+├── download_model.py          # Скрипт для предзагрузки моделей (для Docker)
+├── requirements.txt           # Список зависимостей
+└── run.py                     # Скрипт запуска (entry point)
+
 ```
-
----
-
-## Решение проблем
-
-**Контейнер не запускается**
-
-Проверьте логи:
-```bash
-docker logs my-ocr
-```
-
-Часто проблема в занятом порте 8000. Используйте другой порт:
-```bash
-docker run -d -p 8080:8000 --name my-ocr cvenjoyer/ocr-service:latest
-```
-
-**Медленное распознавание**
-
-Это нормально для CPU. Первый запрос медленнее, последующие быстрее за счет кэширования в памяти.
-
-**Изображение не распознается**
-
-Проверьте:
-- Формат изображения (JPG, PNG поддерживаются лучше всего)
-- На изображении есть четкий, разборчивый текст
-- Размер файла разумный (не более нескольких МБ)
-
----
 
 ## Docker Hub
 
 Образ доступен на Docker Hub:
 
-https://hub.docker.com/r/cvenjoyer
+[https://hub.docker.com/r/cvenjoyer](https://hub.docker.com/repositories/cvenjoyer)
 
 ```bash
 docker pull cvenjoyer/ocr-service:latest
 ```
 
----
-
-## Зависимости
-
-- **FastAPI**: веб-фреймворк
-- **Uvicorn**: ASGI сервер
-- **PaddleOCR**: распознавание текста
-- **Pillow**: обработка изображений
-- **numpy**: численные вычисления
-
----
-
-## Лицензия
-
-PaddleOCR распространяется под лицензией Apache 2.0.
