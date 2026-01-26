@@ -12,6 +12,7 @@ class OCREngine:
             lang=settings.OCR_LANG,
             use_textline_orientation=True,
             enable_mkldnn=False,
+            ocr_version='PP-OCRv3',
             det_limit_side_len=settings.DET_LIMIT_SIDE_LEN,
             det_db_thresh=0.2,
             det_db_box_thresh=0.5,
