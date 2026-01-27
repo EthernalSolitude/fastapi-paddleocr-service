@@ -14,7 +14,7 @@ files = {
     'file': open(FILE_PATH, 'rb')  
 }
 
-print(f"📡 Отправка {FILE_PATH} на сервер...")
+print(f"Отправка {FILE_PATH} на сервер...")
 
 try:
     #POST запрос
@@ -27,7 +27,7 @@ try:
         with open(OUTPUT_FILE, 'wb') as f: 
             for chunk in response.iter_content(chunk_size=8192):
                 f.write(chunk)
-        print(f"Успех! Результат сохранен в: {OUTPUT_FILE}")
+        print(f"Результат сохранен в: {OUTPUT_FILE}")
     else:
         print(f"Ошибка сервера: {response.status_code}")
         print("Детали:", response.text)
