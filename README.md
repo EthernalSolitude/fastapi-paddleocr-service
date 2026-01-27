@@ -6,7 +6,7 @@
 
 ## Установка и запуск
 
-### Способ 1: Локальная установка (без Docker)
+### Способ 1: Локальная установка
 
 Самый простой способ для разработки и тестирования.
 
@@ -17,6 +17,12 @@
 **Шаги:**
 
 ```bash
+#Клонируйте репозиторий
+git clone https://github.com/EthernalSolitude/fastapi-paddleocr-service.git
+
+# Перейдите в папку проекта
+cd fastapi-paddleocr-service
+
 # Установите зависимости
 pip install -r requirements.txt
 
