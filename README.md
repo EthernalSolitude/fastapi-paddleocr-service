@@ -69,30 +69,6 @@ docker stop my-ocr
 
 ---
 
-### Способ 3: Собственная сборка Docker образа
-
-Используйте, если хотите модифицировать код или собрать с другими параметрами.
-
-**Шаги:**
-
-```bash
-# Клонируйте репозиторий
-git clone https://github.com/EthernalSolitude/fastapi-paddleocr-service.git
-
-# Перейдите в папку проекта
-cd fastapi-paddleocr-service
-
-# Соберите образ
-docker build -t ocr-service:latest .
-
-# Запустите контейнер
-docker run -d -p 8000:8000 --name my-ocr ocr-service:latest
-```
-
-Первая сборка может занять определенное время. Последующие сборки пройдут значительно быстрее за счет кэширования слоев.
-
----
-
 ## Использование приложения
 
 ### Веб-интерфейс (Swagger UI)
