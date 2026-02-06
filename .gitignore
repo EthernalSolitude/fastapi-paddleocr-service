@@ -7,3 +7,7 @@ env/
 venv/
 .idea/
 .vscode/
+
+static/results/*
+
+!static/results/.gitkeep
